@@ -2,7 +2,7 @@
 
 namespace KpblcNCadCfgIni.Data
 {
-    internal class KeyValue
+    public class KeyValue
     {
         public KeyValue(string Key, string Value)
         {

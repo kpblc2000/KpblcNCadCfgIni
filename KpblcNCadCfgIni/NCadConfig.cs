@@ -179,8 +179,8 @@ namespace KpblcNCadCfgIni
             File.WriteAllLines(_iniFileName, saveList.ToArray(), Encoding.GetEncoding(1251));
         }
 
-        internal Section UnnamedSection { get; private set; }
-        internal Section IncludeConfigurationFolders { get; private set; }
+        public Section UnnamedSection { get; private set; }
+        public Section IncludeConfigurationFolders { get; private set; }
 
         public List<NCadConfiguration> ConfigurationList { get; private set; }
 

@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace KpblcNCadCfgIni.Data
 {
-    internal class Section
+    public class Section
     {
         public Section()
         {
