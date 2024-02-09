@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace KpblcNCadCfgIni.Data
 {
-    public class NCadConfiguration
+    public class NCadConfiguration : IEquatable<NCadConfiguration>
     {
         public NCadConfiguration()
         {
@@ -38,19 +39,19 @@ namespace KpblcNCadCfgIni.Data
         internal List<string> PrepareToSave()
         {
             List<string> res = new List<string> {
-             $"[{_configHeader}" +( string.IsNullOrWhiteSpace(ConfigurationName) ? "" : $@"\{ConfigurationName}") + "]",
-             string.IsNullOrWhiteSpace(CfgFileName) ? string.Empty : $"CfgFile=s{CfgFileName}",
-             string.IsNullOrWhiteSpace(PgpFileName) ? string.Empty : $"PgpFile=s{PgpFileName}",
-             string.IsNullOrWhiteSpace(Plat) ? string.Empty : $"nPlat=s{Plat}",
-         };
+              $"[{_configHeader}" +( string.IsNullOrWhiteSpace(ConfigurationName) ? "" : $@"\{ConfigurationName}") + "]",
+              string.IsNullOrWhiteSpace(CfgFileName) ? string.Empty : $"CfgFile=s{CfgFileName}",
+              string.IsNullOrWhiteSpace(PgpFileName) ? string.Empty : $"PgpFile=s{PgpFileName}",
+              string.IsNullOrWhiteSpace(Plat) ? string.Empty : $"nPlat=s{Plat}",
+          };
 
             if (StartupApplicationList.Any())
             {
                 res.AddRange(new List<string>
-             {
-                 $@"[{_configHeader}\{ConfigurationNameForAppload}\Appload]",
-                 $@"[{_configHeader}\{ConfigurationNameForAppload}\Appload\Startup]",
-             });
+              {
+                  $@"[{_configHeader}\{ConfigurationNameForAppload}\Appload]",
+                  $@"[{_configHeader}\{ConfigurationNameForAppload}\Appload\Startup]",
+              });
 
                 int index = 0;
                 foreach (StartupApplication app in StartupApplicationList.OrderBy(o => o.LoadOrder))
@@ -66,8 +67,30 @@ namespace KpblcNCadCfgIni.Data
             return res;
         }
 
+        public bool Equals(NCadConfiguration other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return ConfigurationNameForAppload == other.ConfigurationNameForAppload;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((NCadConfiguration)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return ((ConfigurationNameForAppload != null ? ConfigurationNameForAppload.GetHashCode() : 0) * 397);
+            }
+        }
+
         private string _configurationName;
         private readonly string _configHeader = @"\Configuration";
     }
-
 }
