@@ -7,14 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="hostdbmgd">
-      <HintPath>..\..\..\..\..\..\..\SDK\nano23\hostdbmgd.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="hostmgd">
-      <HintPath>..\..\..\..\..\..\..\SDK\nano23\hostmgd.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
+    <PackageReference Include="nanoCAD.Platform.NET" Version="23.1.6324.4405" />
   </ItemGroup>
 
 </Project>
