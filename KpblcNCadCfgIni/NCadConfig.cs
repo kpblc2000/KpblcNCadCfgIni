@@ -15,6 +15,8 @@ namespace KpblcNCadCfgIni
         {
             _iniFileName = ConfigIniFileName;
 
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
             List<string> data = File.ReadAllLines(_iniFileName, Encoding.GetEncoding(1251))
                 .ToList()
                 .Select(o =>
