@@ -29,6 +29,7 @@ namespace KpblcNCadCfgIni
                     return value;
 
                 })
+                .Where(o => !string.IsNullOrWhiteSpace(o))
                 .ToList();
 
             ConfigurationList = new List<NCadConfiguration>(
@@ -108,7 +109,7 @@ namespace KpblcNCadCfgIni
                     if (!data[pos].ToUpper().Contains("APPLOAD"))
                     {
                         string key, value;
-                        while (!data[pos + 1].StartsWith("["))
+                        while (pos < (data.Count - 1) && !data[pos + 1].StartsWith("["))
                         {
                             GetKeyValueFromString(data[pos + 1], out key, out value);
                             if (key.Equals("cfgfile", StringComparison.InvariantCultureIgnoreCase))
