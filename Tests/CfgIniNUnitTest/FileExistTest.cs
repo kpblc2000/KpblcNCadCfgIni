@@ -1,6 +1,4 @@
 ﻿using NUnit.Framework;
-using System.IO;
-using System.Linq;
 
 namespace CfgIniNUnitTest
 {
@@ -10,6 +8,12 @@ namespace CfgIniNUnitTest
         public void CheckFileExistTest()
         {
             Assert.IsTrue(File.Exists(TestSetup.ConfigFileName));
+        }
+
+        [Test, Order(0)]
+        public void CheckEmptyFileExistTest()
+        {
+            Assert.IsTrue(File.Exists(TestSetup.EmptyConfigFileName));
         }
     }
 }
