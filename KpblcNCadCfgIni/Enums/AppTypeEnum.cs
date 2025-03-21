@@ -11,5 +11,7 @@
         APP_PACKAGE,
         /// <summary> Managed (NET) </summary>
         MGD,
+        /// <summary> Модули C++ </summary>
+        NRX,
     }
 }

@@ -7,23 +7,31 @@ namespace AutoloadCommands.Infrastructure
 {
     internal class NanoCadConfig
     {
-        public NanoCadConfig()
-        {
-            RegistryKey curUserKey = Registry.CurrentUser;
-            RegistryKey startupKey = curUserKey.OpenSubKey(HostApplicationServices.Current.UserRegistryProductRootKey);
-            ConfigFileByKpblc = Path.Combine(startupKey.GetValue("UserDataDir").ToString(), $@"Config\{_cfgFileName}");
-            startupKey.Close();
+        //public NanoCadConfig()
+        //{
 
-            Document doc = Application.DocumentManager.MdiActiveDocument;
-            if (doc != null)
+
+        //    Document doc = Application.DocumentManager.MdiActiveDocument;
+        //    if (doc != null)
+        //    {
+        //        dynamic comDoc = doc.AcadDocument;
+        //        ConfigFileByDrRaz = Path.Combine(comDoc.Application.CurUserAppData, _cfgFileName);
+        //    }
+        //}
+        public string ConfigFileFullName
+        {
+            get
             {
-                dynamic comDoc = doc.AcadDocument;
-                ConfigFileByDrRaz = Path.Combine( comDoc.Application.CurUserAppData, _cfgFileName);
+                RegistryKey curUserKey = Registry.CurrentUser;
+                RegistryKey startupKey = curUserKey.OpenSubKey(HostApplicationServices.Current.UserRegistryProductRootKey);
+                string res = Path.Combine(startupKey.GetValue("UserDataDir").ToString(), $@"Config\{_cfgFileName}");
+                startupKey.Close();
+                return res;
             }
         }
-        public string ConfigFileByKpblc { get; }
-        public string ConfigFileByDrRaz { get; }
+        //public string ConfigFileByDrRaz { get; }
 
         private readonly string _cfgFileName = "cfg.ini";
+        
     }
 }

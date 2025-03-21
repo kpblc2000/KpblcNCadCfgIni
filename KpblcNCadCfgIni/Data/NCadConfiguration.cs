@@ -54,7 +54,9 @@ namespace KpblcNCadCfgIni.Data
               });
 
                 int index = 0;
-                foreach (StartupApplication app in StartupApplicationList.OrderBy(o => o.LoadOrder))
+                foreach (StartupApplication app in StartupApplicationList
+                    .Distinct(new StartupApplicationComparer())
+                    .OrderBy(o => o.LoadOrder))
                 {
                     res.Add($@"[{_configHeader}\{ConfigurationNameForAppload}\Appload\Startup\app{index}]");
                     res.Add($"Loader=s{app.LoaderName}");
